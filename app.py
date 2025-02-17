@@ -3,10 +3,11 @@ import numpy as np
 import cv2
 import tensorflow as tf  # Import TensorFlow
 from tensorflow import keras  # Import Keras from TensorFlow
+import os
 
 app = Flask(__name__)
 
-# Load the trained model (using .keras format - the new way!)
+# Load the trained model (use absolute path if necessary for deployment)
 try:
     model = keras.models.load_model("brain_tumor_detector.keras")
 except Exception as e:
@@ -59,7 +60,9 @@ def predict():
         print(f"Prediction error: {e}")  # Log the error for debugging
         return jsonify({'error': f'Prediction failed: {e}'}), 500
 
+# Update the port to use Render's dynamic port (10000 in most cases)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)))
+
 
 
