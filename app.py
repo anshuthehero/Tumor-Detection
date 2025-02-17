@@ -62,7 +62,7 @@ def predict():
 
 # Update the port to use Render's dynamic port (10000 in most cases)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)))
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))  # Default to 5000 for local development
 
 
 
